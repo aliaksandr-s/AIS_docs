@@ -1,3 +1,4 @@
+require('dotenv').load();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,7 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./back-end/routes/index');
+//var index = require('./back-end/routes/index');
 
 var app = express();
 
@@ -17,11 +18,12 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'back-end/public')));
+app.use(express.static(path.join(__dirname, 'front-end/dist')));
+app.use(express.static(path.join(__dirname, 'node-modules')));
 
-app.use('/', index);
+//app.use('/', index);
 app.use(function (req, res) {
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname, 'front-end/dist/app', 'index.html'));
 });
 
 module.exports = app;
