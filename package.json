@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./back-end/bin/www",
+    "backend": "nodemon ./back-end/bin/www",
     "devLnx": "NODE_ENV=development && gulp devLnx",
     "prodLnx": "NODE_ENV=production && gulp prodProd",
     "devWin": "SET \"NODE_ENV=development\" && gulp devWin",
