@@ -1,2 +1,3 @@
 node_modules
 front-end/dist/vendors
+front-end/bower_components

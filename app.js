@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'front-end/dist')));
+app.use(express.static(path.join(__dirname, 'front-end')));
 app.use(express.static(path.join(__dirname, 'node-modules')));
 
 app.get('/api/test/ads', (req, res) => {
