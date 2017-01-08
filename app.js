@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'front-end')));
 
 //app.use('/', index);
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, 'front-end/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'front-end', 'index.html'));
 });
 
 module.exports = app;
