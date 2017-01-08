@@ -1,3 +1,10 @@
-AIS_docs
+# AIS_docs
 
-app for documents sharing
+## Install
+`npm install && cd ./front-end/ && bower install`
+
+## Launch
+
+- `npm run backend`
+- `npm run devLnx`
+
