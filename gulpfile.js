@@ -32,12 +32,6 @@ lazyRequireTask('build:css', './tasks/build-css.js', {
     dest: pathConfig.build.css
 });
 
-//Copies node_modules to root directory
-lazyRequireTask('vendors', './tasks/vendors.js', {
-    src: pathConfig.vendors.src,
-    dest: pathConfig.vendors.dest
-});
-
 //Deletes app directory
 lazyRequireTask('clean', './tasks/clean.js', {
     dest: pathConfig.clean
@@ -51,10 +45,9 @@ lazyRequireTask('serve', './tasks/serve.js', {
 
 //Observes of change in files
 gulp.task('watch', function () {
-    gulp.watch(pathConfig.src.html, gulp.series('build:html'));
+    gulp.watch(pathConfig.watch.html, gulp.series('build:html'));
     gulp.watch(pathConfig.src.js, gulp.series('build:js'));
     gulp.watch(pathConfig.watch.scss, gulp.series('build:css'));
-    //gulp.watch(path.src.img, gulp.series('build:img'));
 });
 
 //Makes build of all tasks

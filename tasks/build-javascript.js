@@ -12,7 +12,7 @@ module.exports = function (options) {
         return combiner(
             gulp.src(options.src),
             $.if(isDevelopment, $.sourcemaps.init()), //if development build - inits sourcemaps
-            $.if(!isDevelopment, $.uglify()), //if prodaction build - minifies js
+            $.uglify(), //minifies js
             $.if(isDevelopment, $.sourcemaps.write()), //if development build - writies sourcemaps
             gulp.dest(options.dest)
         ).on('error', $.notify.onError());

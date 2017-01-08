@@ -19,15 +19,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'front-end')));
-app.use(express.static(path.join(__dirname, 'node-modules')));
-
-app.get('/api/test/ads', (req, res) => {
-  res.json({"abd": "deeeedd"})
-})
 
 //app.use('/', index);
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, 'front-end/dist/app', 'index.html'));
+  res.sendFile(path.join(__dirname, 'front-end/dist', 'index.html'));
 });
 
 module.exports = app;
