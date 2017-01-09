@@ -16,6 +16,12 @@
                 controller: 'homeCtrl',
                 controllerAs: 'home'
             })
+            .state('admin', {
+                url: '/admin',
+                templateUrl: 'dist/controllers/admin/admin.view.html',
+                controller: 'adminCtrl',
+                controllerAs: 'admin'
+            })
 
         $locationProvider.html5Mode(true);
     }
