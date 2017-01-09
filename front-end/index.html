@@ -12,23 +12,7 @@
 </head>
 
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="../" class="navbar-brand">AIS docs</a>
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            </div>
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <ais-navigation></ais-navigation>
     <div class="container" style="padding-top: 50px">
         <ui-view></ui-view>
     </div>
@@ -39,6 +23,8 @@
     <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
     <script src="./dist/core.js"></script>
     <script src="./dist/controllers/home/home.ctrl.js"></script>
+    <script src="./dist/directives/navigation/navigtation.ctrl.js"></script>
+    <script src="./dist/directives/navigation/navigation.directive.js"></script>
 </body>
 
 </html>
