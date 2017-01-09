@@ -3,7 +3,8 @@
 
     angular.module('aisApp', ['ui.router', 'ngFileUpload'])
         .config(['$stateProvider', '$locationProvider',
-            '$urlMatcherFactoryProvider', '$urlRouterProvider', config]);
+            '$urlMatcherFactoryProvider', '$urlRouterProvider', config
+        ]);
 
     function config($stateProvider, $locationProvider, $urlMatcherFactoryProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
@@ -21,6 +22,12 @@
                 templateUrl: 'dist/controllers/admin/admin.view.html',
                 controller: 'adminCtrl',
                 controllerAs: 'admin'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'dist/controllers/login/login.view.html',
+                controller: 'loginCtrl',
+                controllerAs: 'login'
             })
 
         $locationProvider.html5Mode(true);

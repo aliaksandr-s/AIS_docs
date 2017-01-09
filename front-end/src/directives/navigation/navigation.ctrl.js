@@ -7,7 +7,7 @@
 
     function navigationCtrl($rootScope, $state, authService) {
         var vm = this;
-        debugger;
+
         vm.isLoggedIn = authService.isLoggedIn();
         vm.currentUser = authService.currentUser();
         vm.logout = function () {
