@@ -13,7 +13,7 @@
 
 <body>
     <ais-navigation></ais-navigation>
-    <div class="container" style="padding-top: 50px">
+    <div class="container" class="main-ui">
         <ui-view></ui-view>
     </div>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
@@ -21,8 +21,15 @@
     <script src="./bower_components/angular/angular.min.js"></script>
     <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    
+    <!--app-->
     <script src="./dist/core.js"></script>
+    
+    <!--controllers-->
     <script src="./dist/controllers/home/home.ctrl.js"></script>
+    <script src="./dist/controllers/admin/admin.ctrl.js"></script>
+
+    <!--directives-->
     <script src="./dist/directives/navigation/navigtation.ctrl.js"></script>
     <script src="./dist/directives/navigation/navigation.directive.js"></script>
 </body>
