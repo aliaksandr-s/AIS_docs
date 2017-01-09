@@ -1,28 +1,37 @@
-const passport = require('passport');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 
-module.exports.login = function (req, res) {
-    if (!req.body.email || !req.body.password) {
+module.exports.addUser = (req, res) => {
+    let name = req.body.name;
+    let email = req.body.email;
+    let password = req.body.password;
+
+    if (!name || !email || !password) {
         sendJSONresponse(res, 400, {
             "message": "All fields required"
         });
         return;
     }
-    passport.authenticate('local', function (err, user, info) {
+
+    let user = new User();
+    user.name = name;
+    user.email = email;
+    user.setPassword(password);
+    user.profileStatus = 'user';
+
+    user.save(function (err, response) {
         let token;
+
         if (err) {
             sendJSONresponse(res, 404, err);
-            return;
-        }
-        if (user) {
+        } else {
             token = user.generateJwt();
+
+            let a;
             sendJSONresponse(res, 200, {
                 "token": token
             });
-        } else {
-            sendJSONresponse(res, 401, info);
         }
-    })(req, res);
+    });
 };
