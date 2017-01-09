@@ -15,7 +15,7 @@
             vm.isLoggedIn = authService.isLoggedIn();
             vm.currentUser = authService.currentUser();
 
-            $route.reload();
+            $state.reload();
         };
 
         $rootScope.$on('isLogined', function () {

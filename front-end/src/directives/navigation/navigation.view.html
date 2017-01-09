@@ -10,7 +10,6 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/admin">Admin</a></li>
                 <li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Log in</a></li>
                 <li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{navvm.currentUser.name}}</a></li>
                 <li ng-show="navvm.isLoggedIn"><a ui-sref="home" ng-click="navvm.logout()">Log out</a></li>
