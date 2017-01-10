@@ -23,6 +23,12 @@
                 controller: 'newUserCtrl',
                 controllerAs: 'newUser'
             })
+            .state('newDocument', {
+                url: '/new-document',
+                templateUrl: 'dist/controllers/newDocument/newDocument.view.html',
+                controller: 'newDocumentCtrl',
+                controllerAs: 'newDoc'
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'dist/controllers/login/login.view.html',
