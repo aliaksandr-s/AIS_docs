@@ -1,6 +1,6 @@
 <div class="list-group table-of-contents">
-    <div class="list-group-item" ui-sref="clients" ng-if="leftNav.currentUser && leftNav.currentUser.profileStatus == 'admin'">Clients:
-        <a ui-sref="clients" class="document-link">All</a>
+    <div class="list-group-item" ng-if="leftNav.currentUser && leftNav.currentUser.profileStatus == 'admin'">Clients:
+        <a href="#" class="document-link">All</a>
     </div>
     <div class="list-group-item" ng-if="leftNav.isLoggedIn">
         Documents:
