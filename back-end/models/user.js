@@ -9,7 +9,8 @@ const docSchema = new Schema({
     name: String,
     date: Date,
     docStatus: String,
-    url: String
+    path: String,
+    type: String
 });
 
 const userSchema = new Schema({
