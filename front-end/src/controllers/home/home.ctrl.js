@@ -5,11 +5,16 @@
         .module('aisApp')
         .controller('homeCtrl', homeCtrl);
 
-    homeCtrl.$inject = ['$scope'];
+    homeCtrl.$inject = ['$scope', '$state', 'authService'];
 
-    function homeCtrl($scope) {
+    function homeCtrl($scope, $state, authService) {
         var vm = this;
 
-        vm.hello = 'Hello World!';
+        vm.currentUser = authService.currentUser();
+        vm.isLoggedIn = authService.isLoggedIn();
+
+        if (!vm.isLoggedIn) {
+            $state.go('login');
+        }
     }
 })();
