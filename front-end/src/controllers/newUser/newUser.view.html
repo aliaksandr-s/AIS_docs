@@ -23,7 +23,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12 m-t-5">
-                <div class="well" ng-show="newUser.success">Saved</div>
+                <div class="alert alert-success" ng-show="newUser.success">Saved</div>
+                <div class="alert alert-danger" ng-show="newUser.error">{{newUser.error}}</div>
                 <form class="form-horizontal" ng-submit="newUser.add()">
                     <fieldset>
                         <div class="form-group">

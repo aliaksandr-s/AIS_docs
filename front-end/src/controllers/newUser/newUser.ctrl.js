@@ -31,10 +31,16 @@
 
                     $timeout(function () {
                         newUser.success = false;
-                    }, 2000)
-                    
+                    }, 3000)
+
                 }, function (err) {
-                    console.log(err)
+                    
+                    newUser.error = err.data.message
+
+                    $timeout(function () {
+                        newUser.error = "";
+                    }, 3000)
+
                 })
         }
     }
