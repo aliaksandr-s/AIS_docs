@@ -24,7 +24,9 @@ module.exports.addUser = (req, res) => {
         let token;
 
         if (err) {
-            sendJSONresponse(res, 404, err);
+            sendJSONresponse(res, 404, {
+                "message": "User with that email already exists"
+            });
         } else {
             token = user.generateJwt();
 

@@ -1,19 +1,16 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
+
+    <div class="row m-t-5">
+        <div class="col-md-6 col-md-offset-1">
             <h3>Log in</h3>
             <form ng-submit="login.onSubmit()">
                 <div role="alert" ng-show="login.formError" class="alert alert-danger">{{login.formError }}</div>
                 <div class="form-group">
-                    <input type="email" class="form-control" id="email"
-                     placeholder="Enter email" ng-model="login.credentials.email">
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="login.credentials.email">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password"
-                     placeholder="Password" ng-model="login.credentials.password">
+                    <input type="password" class="form-control" id="password" placeholder="Password" ng-model="login.credentials.password">
                 </div>
-                <button type="submit" class="btn btn-success">Log in</button>
+                <button type="submit" class="btn btn-primary btn-block m-t-1">Log in</button>
             </form>
         </div>
     </div>
-</div>

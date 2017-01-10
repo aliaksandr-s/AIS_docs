@@ -1,24 +1,22 @@
 (function () {
     angular
         .module('aisApp')
-        .controller('navigationCtrl', navigationCtrl);
+        .controller('leftNavCtrl', leftNavCtrl);
 
-    navigationCtrl.$inject = ['$rootScope', '$state', 'authService'];
+    leftNavCtrl.$inject = ['$rootScope', '$state', 'authService'];
 
-    function navigationCtrl($rootScope, $state, authService) {
+    function leftNavCtrl($rootScope, $state, authService) {
         var vm = this;
 
         vm.isLoggedIn = authService.isLoggedIn();
         vm.currentUser = authService.currentUser();
-        vm.logout = function () {
-            authService.logout();
-            vm.isLoggedIn = authService.isLoggedIn();
-            vm.currentUser = authService.currentUser();
-
-            $rootScope.$emit('isLoginedOut');
-        };
 
         $rootScope.$on('isLogined', function () {
+            vm.isLoggedIn = authService.isLoggedIn();
+            vm.currentUser = authService.currentUser();
+        });
+
+        $rootScope.$on('isLoginedOut', function () {
             vm.isLoggedIn = authService.isLoggedIn();
             vm.currentUser = authService.currentUser();
         });

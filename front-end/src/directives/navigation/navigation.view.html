@@ -11,8 +11,9 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Log in</a></li>
-                <li ng-show="navvm.isLoggedIn"><a ui-sref="profile">{{navvm.currentUser.name}}</a></li>
-                <li ng-show="navvm.isLoggedIn"><a ui-sref="home" ng-click="navvm.logout()">Log out</a></li>
+                <!--need state!!!-->
+                <li ng-show="navvm.isLoggedIn"><a href="#">{{navvm.currentUser.name}}</a></li>
+                <li ng-show="navvm.isLoggedIn"><a ui-sref="login" ng-click="navvm.logout()">Log out</a></li>
             </ul>
         </div>
     </div>
