@@ -14,7 +14,14 @@
 <body>
     <ais-navigation></ais-navigation>
     <div class="container" class="main-ui">
-        <ui-view></ui-view>
+        <div class="row">
+            <div class="col-md-3">
+                <ais-left-nav></ais-left-nav>
+            </div>
+            <div class="col-md-9">
+                <ui-view></ui-view>
+            </div>
+        </div>
     </div>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -35,6 +42,8 @@
     <!--directives-->
     <script src="./dist/directives/navigation/navigation.ctrl.js"></script>
     <script src="./dist/directives/navigation/navigation.directive.js"></script>
+    <script src="./dist/directives/left-navigation/left-nav.ctrl.js"></script>
+    <script src="./dist/directives/left-navigation/left-nav.directive.js"></script>
 </body>
 
 </html>
