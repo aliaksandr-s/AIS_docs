@@ -1,6 +1,6 @@
-<div class="container">
+
     <div class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-md-offset-3">
             <h3>Log in</h3>
             <form ng-submit="login.onSubmit()">
                 <div role="alert" ng-show="login.formError" class="alert alert-danger">{{login.formError }}</div>
@@ -12,8 +12,7 @@
                     <input type="password" class="form-control" id="password"
                      placeholder="Password" ng-model="login.credentials.password">
                 </div>
-                <button type="submit" class="btn btn-success">Log in</button>
+                <button type="submit" class="btn btn-primary btn-block m-t-1">Log in</button>
             </form>
         </div>
     </div>
-</div>

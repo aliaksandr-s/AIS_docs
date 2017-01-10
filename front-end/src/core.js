@@ -17,8 +17,8 @@
                 controller: 'homeCtrl',
                 controllerAs: 'home'
             })
-            .state('admin', {
-                url: '/admin',
+            .state('newUser', {
+                url: '/new-user',
                 templateUrl: 'dist/controllers/admin/admin.view.html',
                 controller: 'adminCtrl',
                 controllerAs: 'admin'
