@@ -17,11 +17,17 @@
                 controller: 'homeCtrl',
                 controllerAs: 'home'
             })
-            .state('home.clients', {
+            .state('home.add-user', {
                 url: 'user/add',
                 templateUrl: 'dist/controllers/newUser/newUser.view.html',
                 controller: 'newUserCtrl',
                 controllerAs: 'newUser'
+            })
+            .state('home.users', {
+                url: 'users',
+                templateUrl: '../dist/controllers/allUsers/allUsers.view.html',
+                controller: 'allUsersCtrl',
+                controllerAs: 'allUsers'
             })
             .state('home.documents', {
                 url: 'documents/add',
