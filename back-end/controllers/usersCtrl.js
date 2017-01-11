@@ -30,10 +30,22 @@ module.exports.addUser = (req, res) => {
         } else {
             token = user.generateJwt();
 
-            let a;
             sendJSONresponse(res, 200, {
                 "token": token
             });
         }
     });
 };
+
+module.exports.getUsers = (req, res) => {
+    User.find({}, '-_id name email docs', function (err, users) {
+        if (err) {
+            sendJSONresponse(res, 409, {
+                "message": "Something went wrong"
+            })
+        }
+        sendJSONresponse(res, 200, {
+            "users": users
+        })
+    });
+}
