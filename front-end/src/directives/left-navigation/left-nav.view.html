@@ -1,12 +1,12 @@
 <div class="list-group table-of-contents">
-    <div class="list-group-item" ng-if="leftNav.currentUser && leftNav.currentUser.profileStatus == 'admin'">Clients:
-        <a href="#" class="document-link">All</a>
+    <div class="list-group-item" ng-if="leftNav.currentUser && leftNav.currentUser.profileStatus == 'admin'">
+        <a href="#" class="category-link">Clients</a>
     </div>
     <div class="list-group-item" ng-if="leftNav.isLoggedIn">
-        Documents:
-        <a href="#documents" class="document-link">All</a>
-        <a href="#documents" class="document-link">In Progress</a>
-        <a href="#documents" class="document-link">To Send</a>
-        <a href="#documents" class="document-link">Unresponded</a>
+        <span class="category-name">Documents:</span>
+        <a href="#documents" class="category-link">All</a>
+        <a href="#documents" class="category-link">In Progress</a>
+        <a href="#documents" class="category-link">To Send</a>
+        <a href="#documents" class="category-link">Unresponded</a>
     </div>
 </div>

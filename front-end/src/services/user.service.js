@@ -16,5 +16,9 @@
             });
         };
 
+        service.getUsers = function () {
+            return $http.get('/api/users')
+        }
+
     }
 })();
