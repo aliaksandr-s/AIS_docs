@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('aisApp', ['ui.router', 'ngFileUpload'])
+    var app = angular.module('aisApp', ['ui.router', 'ngFileUpload'])
         .config(['$stateProvider', '$locationProvider',
             '$urlMatcherFactoryProvider', '$urlRouterProvider', config
         ]);
@@ -9,6 +9,7 @@
     function config($stateProvider, $locationProvider, $urlMatcherFactoryProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
         $urlMatcherFactoryProvider.caseInsensitive(true);
+        $locationProvider.html5Mode(true);
 
         $stateProvider
             .state('home', {
@@ -25,7 +26,7 @@
             })
             .state('home.users', {
                 url: 'users',
-                templateUrl: '../dist/controllers/allUsers/allUsers.view.html',
+                templateUrl: 'dist/controllers/allUsers/allUsers.view.html',
                 controller: 'allUsersCtrl',
                 controllerAs: 'allUsers'
             })
@@ -42,6 +43,16 @@
                 controllerAs: 'login'
             })
 
-        $locationProvider.html5Mode(true);
     }
+
+    app.run(function ($rootScope, authService, $state, $location) {
+        // Listen to '$locationChangeSuccess', not '$stateChangeStart'
+        $rootScope.$on('$locationChangeSuccess', function () {
+            if ($location.url() !== '/login' && !authService.isLoggedIn()) {
+                $state.go('login')
+            }  
+        })
+    })
+
+
 })();
