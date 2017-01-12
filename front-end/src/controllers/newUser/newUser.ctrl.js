@@ -10,8 +10,8 @@
     function newUserCtrl(userService, $timeout) {
         var newUser = this;
 
-        newUser.error = "";
-        newUser.success = false;
+        newUser.buttonMessage = "Add";
+        newUser.buttonClass = "btn-primary"
 
         newUser.add = function () {
 
@@ -27,18 +27,23 @@
                     newUser.name = "";
                     newUser.email = "";
                     newUser.password = "";
-                    newUser.success = true;
+
+                    newUser.buttonMessage = "Saved";
+                    newUser.buttonClass = "btn-success"
 
                     $timeout(function () {
-                        newUser.success = false;
+                        newUser.buttonMessage = "Add"
+                        newUser.buttonClass = "btn-primary"
                     }, 3000)
 
                 }, function (err) {
                     
-                    newUser.error = err.data.message
+                    newUser.buttonMessage = err.data.message
+                    newUser.buttonClass = "btn-danger"
 
                     $timeout(function () {
-                        newUser.error = "";
+                        newUser.buttonMessage = "Add"
+                        newUser.buttonClass = "btn-primary"
                     }, 3000)
 
                 })

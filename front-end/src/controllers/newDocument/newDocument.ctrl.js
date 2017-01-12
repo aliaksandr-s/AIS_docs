@@ -8,7 +8,7 @@
     newDocumentCtrl.$inject = ['documentService', '$scope', '$timeout']
 
     function newDocumentCtrl(documentService, $scope, $timeout) {
-        var newDoc = this;
+        var vm = this;
 
         $scope.$watch('files', function () {
             if ($scope.files && $scope.files.length) {
@@ -18,6 +18,7 @@
                         documentService.uploadDocuments(file)
                         .then(function (resp) {
                             console.log(resp.data.message)
+                            vm.message = resp.data.message;
                         });
                     }
                 }
