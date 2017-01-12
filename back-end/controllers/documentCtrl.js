@@ -22,7 +22,7 @@ module.exports.addDocument = (req, res) => {
 
     form.on('end', function() {
         sendJSONresponse(res, 200, {
-            "message": "Files has been uploaded"
+            "message": "Uploaded"
         })
     });
 

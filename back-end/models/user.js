@@ -3,8 +3,6 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
-const password = '';
-
 const docSchema = new Schema({
     name: String,
     date: Date,

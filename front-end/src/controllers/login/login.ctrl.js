@@ -5,36 +5,52 @@
         .module('aisApp')
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$rootScope', '$state', 'authService'];
+    loginCtrl.$inject = ['$rootScope', '$state', 'authService', '$timeout'];
 
-    function loginCtrl($rootScope, $state, authService) {
+    function loginCtrl($rootScope, $state, authService, $timeout) {
         var vm = this;
+
+        vm.buttonMessage = "Log in";
+        vm.buttonClass = "btn-primary"
+
         vm.credentials = {
             email: "",
             password: ""
         };
 
+
         //logins user
         vm.doLogin = function () {
-            vm.formError = "";
             authService
                 .login(vm.credentials)
                 .then(
                     function () {
                         $state.go('home');
-
                         $rootScope.$emit('isLogined');
                     },
                     function (err) {
-                        vm.formError = err.data.message;
+                        vm.buttonMessage = err.data.message;
+                        vm.buttonClass = "btn-danger"
+
+                        $timeout(function () {
+                            vm.buttonMessage = "Log in";
+                            vm.buttonClass = "btn-primary"
+                        }, 1800)
+
                     });
         };
 
         vm.onSubmit = function () {
-            vm.formError = "";
 
             if (!vm.credentials.email || !vm.credentials.password) {
-                vm.formError = "All fields required, please try again";
+                vm.buttonMessage = "All fields required, please try again";
+                vm.buttonClass = "btn-danger"
+
+                $timeout(function () {
+                    vm.buttonMessage = "Log in";
+                    vm.buttonClass = "btn-primary"
+                }, 1800)
+
                 return false;
             } else {
                 vm.doLogin();
