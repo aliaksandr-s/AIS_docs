@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const Document = mongoose.model('Document');
 const formidable = require('formidable');
 const config = require('../config/configApp')
 const fs = require('fs');
@@ -13,6 +13,7 @@ module.exports.addDocument = (req, res) => {
         form.uploadDir = config.UPLOAD_FOLDER;
 
     form.on('file', function(field, file) {
+        console.log(file)
         fs.rename(file.path, path.join(form.uploadDir, file.name));
     });
 

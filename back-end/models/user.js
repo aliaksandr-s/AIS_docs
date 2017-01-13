@@ -5,13 +5,6 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
-const docSchema = new Schema({
-    name: String,
-    date: Date,
-    docStatus: String,
-    url: String
-});
-
 const userSchema = new Schema({
     email: {
         type: String,
@@ -22,7 +15,7 @@ const userSchema = new Schema({
     salt: String,
     token: String,
     profileStatus: String,
-    docs: [docSchema]
+    docs: Array
 });
 
 userSchema.methods.setPassword = function (password) {
