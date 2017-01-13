@@ -10,11 +10,11 @@
     function documentService($http, Upload) {
         var service = this;
 
-        service.uploadDocuments = function (file) {
+        service.uploadDocuments = function (file, userId) {
             return Upload.upload({
                 url: 'api/document',
                 data: {
-                    id: "email",
+                    id: userId,
                     file: file
                 }
             })
