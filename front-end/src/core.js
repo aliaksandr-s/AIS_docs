@@ -19,16 +19,18 @@
                 controllerAs: 'home'
             })
             .state('home.add-user', {
-                url: 'user/add',
+                url: 'users/add',
                 templateUrl: 'dist/controllers/newUser/newUser.view.html',
                 controller: 'newUserCtrl',
-                controllerAs: 'newUser'
+                controllerAs: 'newUser',
+                resolve: { restrict: adminOnly }
             })
             .state('home.users', {
                 url: 'users',
                 templateUrl: 'dist/controllers/allUsers/allUsers.view.html',
                 controller: 'allUsersCtrl',
-                controllerAs: 'allUsers'
+                controllerAs: 'allUsers',
+                resolve: { restrict: adminOnly }
             })
             .state('home.documents', {
                 url: 'documents/add',
@@ -45,12 +47,24 @@
 
     }
 
+    function adminOnly($q, $state, $timeout, authService) {
+        if (authService.currentUser().profileStatus === "admin") {
+            return $q.when()
+        } else {
+            $timeout(function () {
+                $state.go('home')
+            })
+            return $q.reject()
+        }
+    }
+
+    // check if a user logged in on every state change
     app.run(function ($rootScope, authService, $state, $location) {
         // Listen to '$locationChangeSuccess', not '$stateChangeStart'
         $rootScope.$on('$locationChangeSuccess', function () {
             if ($location.url() !== '/login' && !authService.isLoggedIn()) {
                 $state.go('login')
-            }  
+            }
         })
     })
 
