@@ -40,7 +40,7 @@ module.exports.addUser = (req, res) => {
 };
 
 module.exports.getUsers = (req, res) => {
-    User.find({}, '-_id name email docs', function (err, users) {
+    User.find({}, '_id name email docs', function (err, users) {
         if (err) {
             sendJSONresponse(res, 409, {
                 "message": "Something went wrong"

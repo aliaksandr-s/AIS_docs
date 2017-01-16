@@ -3,7 +3,11 @@
         <div class="well m-r-15 m-l-15">
             <div>Client name: {{user.name}}</div>
             <div>Client email: {{user.email}}</div>
-            <div>Client docs: {{user.docs}}</div>
+            <div>{{user._id}}</div>
+
+            <div>Client docs: 
+                <a href="" target="_self" ng-click="allUsers.getDocument(user._id, doc.name)" ng-repeat="doc in user.docs">{{doc.name}}, </a>
+            </div>
         </div>
     </div>
 </div>

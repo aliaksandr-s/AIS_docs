@@ -18,7 +18,6 @@
                         var userId = authService.currentUser().id;
                         documentService.uploadDocuments(file, userId)
                         .then(function (resp) {
-                            console.log(resp.data.message)
                             vm.message = resp.data.message;
                         })
                     }
