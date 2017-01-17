@@ -5,9 +5,9 @@
         .module('aisApp')
         .controller('newDocumentCtrl', newDocumentCtrl)
 
-    newDocumentCtrl.$inject = ['documentService', '$scope', 'authService']
+    newDocumentCtrl.$inject = ['documentService', '$scope', 'authService', '$timeout']
 
-    function newDocumentCtrl(documentService, $scope, authService) {
+    function newDocumentCtrl(documentService, $scope, authService, timeout) {
         var vm = this;
 
         $scope.$watch('files', function () {
@@ -22,12 +22,6 @@
                         })
                     }
                 }
-            }
-        });
-
-        $scope.$watch('file', function () {
-            if ($scope.file != null) {
-                $scope.files = [$scope.file];
             }
         });
 
