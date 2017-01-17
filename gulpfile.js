@@ -40,7 +40,8 @@ lazyRequireTask('clean', './tasks/clean.js', {
 //Starts browser-sync server
 lazyRequireTask('serve', './tasks/serve.js', {
     proxy: pathConfig.server.proxy,
-    watch: pathConfig.server.watch
+    watch: pathConfig.server.watch,
+    port: pathConfig.server.port
 });
 
 //Observes of change in files
