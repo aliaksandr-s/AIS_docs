@@ -1,1 +1,21 @@
 @import '../controllers/home/home.styles.scss';
+@import '../directives/left-navigation/left-nav.style.scss';
+@import '../controllers/newDocument/newDocument.styles.scss';
+
+.m-t-5 {
+  margin-top: 5rem
+}
+.m-t-4 {
+  margin-top: 4rem
+}
+.m-t-2 {
+  margin-top: 1rem
+}
+
+.m-r-15 {
+  margin-right: 1.5rem
+}
+
+.m-l-15 {
+  margin-left: 1.5rem
+}
