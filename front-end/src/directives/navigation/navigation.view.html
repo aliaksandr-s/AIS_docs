@@ -1,0 +1,20 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a ui-sref="home.documents" class="navbar-brand">AIS Docs</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="navvm.isLoggedIn"><a ui-sref="login">Log in</a></li>
+                <!--need state!!!-->
+                <li ng-show="navvm.isLoggedIn"><a href="#">{{navvm.currentUser.name}}</a></li>
+                <li ng-show="navvm.isLoggedIn"><a ui-sref="login" ng-click="navvm.logout()">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
