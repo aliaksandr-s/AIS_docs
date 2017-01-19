@@ -1,5 +1,5 @@
 const configApp = {
-    dbURI: 'mongodb://localhost/ais_docs_db',
+    dbURI: 'mongodb://mongo:27017/ais-docs',
     UPLOAD_FOLDER: './uploads',
     sendJSONresponse: function (res, status, content) {
         res.status(status);
