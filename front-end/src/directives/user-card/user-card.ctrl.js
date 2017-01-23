@@ -3,10 +3,18 @@
         .module('aisApp')
         .controller('userCardCtrl', userCardCtrl);
 
-    userCardCtrl.$inject = ['$scope', '$timeout', 'documentService'];
+    userCardCtrl.$inject = ['$scope', '$timeout', 'documentService', '$state'];
 
-    function userCardCtrl($scope, $timeout, documentService) {
+    function userCardCtrl($scope, $timeout, documentService, $state) {
         var vm = this;
+
+        vm.showUserDocuments = function () {
+            $state.go('home.user-documents', {user: vm.user})
+        }
+
+        vm.getDocument = function(userId, docName) {
+            documentService.downloadDocument(userId, docName)
+        }
 
         $scope.uploadFiles = function(files, errFiles, userId) {
             vm.message = "";

@@ -65,3 +65,17 @@ module.exports.downloadDocument = (req, res) => {
     });
 
 }
+
+module.exports.getUserDocuments = (req, res) => {
+    User.findOne({_id: req.params.userId}, (err, user) => {
+        if (err) {
+            sendJSONresponse(res, 404, {
+                "message": "Not found"
+            })
+        }
+        sendJSONresponse(res, 200, {
+            "documents": user.docs
+        })
+    })
+
+}
