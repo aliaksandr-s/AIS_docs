@@ -32,6 +32,13 @@
                 controllerAs: 'allUsers',
                 resolve: { restrict: adminOnly }
             })
+            .state('home.user-documents', {
+                url: 'documents',
+                templateUrl: 'dist/controllers/userDocuments/userDocuments.view.html',
+                controller: 'userDocumentsCtrl',
+                controllerAs: 'userDocs',
+                params: {user: null}                
+            })
             .state('home.documents', {
                 url: 'documents/add',
                 templateUrl: 'dist/controllers/newDocument/newDocument.view.html',
