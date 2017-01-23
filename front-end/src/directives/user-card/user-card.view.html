@@ -5,17 +5,17 @@
                 <div>Client name: {{userCard.user.name}}</div>
                 <div>Client email: {{userCard.user.email}}</div>
                 <div>{{userCard.user._id}}</div>
-                <div>Client docs:
+                <div>Documents: {{userCard.user.docs.length}}</div>
+                <!--<div>Client docs:
                     <a href="" target="_self" ng-click="userCard.getDocument(userCard.user._id, doc.name)" ng-repeat="doc in userCard.user.docs">{{doc.name}}, </a>
-                </div>
+                </div>-->
             </div>
             <div class="col-sm-6">
                 <button class="btn btn-default" ngf-select="uploadFiles($files, $invalidFiles, userCard.user._id)" ngf-multiple="true" 
                         accept="image/*,.pdf,.doc,.docx" ngf-pattern="'image/*,.pdf,.doc,.docx'">
                         Upload documents
                 </button>
-                <a ui-sref="home.user-documents" class="btn btn-default">Show all documents</a>
-                <button ng-click="userCard.showUser()">test</button>
+                <button ng-click="userCard.showUserDocuments()" class="btn btn-default">Show user documents</button>
                 <br><br> Files:
                 <ul>
                     <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$errorParam}}

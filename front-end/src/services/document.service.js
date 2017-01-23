@@ -54,8 +54,5 @@
             })
         }
 
-        service.getUserDocuments = function (userId) {
-            return userId
-        }
     }
 })();

@@ -36,7 +36,8 @@
                 url: 'documents',
                 templateUrl: 'dist/controllers/userDocuments/userDocuments.view.html',
                 controller: 'userDocumentsCtrl',
-                controllerAs: 'userDocs'                
+                controllerAs: 'userDocs',
+                params: {user: null}                
             })
             .state('home.documents', {
                 url: 'documents/add',
