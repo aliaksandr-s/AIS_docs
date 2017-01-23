@@ -14,5 +14,6 @@ router.get('/users', usersCtrl.getUsers);
 // documents routes
 router.post('/documents', documentCtrl.uploadDocument)
 router.get('/documents', documentCtrl.downloadDocument)
+router.get('/documents/:userId', documentCtrl.getUserDocuments)
 
 module.exports = router;
