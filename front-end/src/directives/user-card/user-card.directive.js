@@ -7,7 +7,11 @@
         return {
             restrict: 'E',
             templateUrl: 'dist/directives/user-card/user-card.view.html',
-            controller: 'userCardCtrl as userCard'
+            scope: {
+                user: "="
+            },
+            controller: 'userCardCtrl as userCard',
+            bindToController: true
         }
     }
 

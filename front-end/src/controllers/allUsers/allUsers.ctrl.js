@@ -14,9 +14,5 @@
             vm.users = res.data.users;
         });
 
-        vm.getDocument = function(userId, docName) {
-            documentService.downloadDocument(userId, docName)
-        }
-
     }
 })();
