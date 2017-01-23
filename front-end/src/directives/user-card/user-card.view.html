@@ -1,0 +1,28 @@
+<div class="col-sm-12 m-t-4">
+    <div class="well m-r-15 m-l-15">
+        <div class="row">
+            <div class="col-sm-6">
+                <div>Client name: {{user.name}}</div>
+                <div>Client email: {{user.email}}</div>
+                <div>{{user._id}}</div>
+                <div>Client docs:
+                    <a href="" target="_self" ng-click="allUsers.getDocument(user._id, doc.name)" ng-repeat="doc in user.docs">{{doc.name}}, </a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-default" ngf-select="uploadFiles($files, $invalidFiles, user._id)" ngf-multiple="true" 
+                        accept="image/*,.pdf,.doc,.docx" ngf-pattern="'image/*,.pdf,.doc,.docx'">
+                        Upload documents
+                </button>
+                <br><br> Files:
+                <ul>
+                    <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$errorParam}}
+                    </li>
+                    <li ng-repeat="f in errFiles" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
+                    </li>
+                </ul>
+                {{userCard.message}}
+            </div>
+        </div>
+    </div>
+</div>

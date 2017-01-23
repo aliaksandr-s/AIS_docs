@@ -1,16 +1,9 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
-
-const password = '';
-
-const docSchema = new Schema({
-    name: String,
-    date: Date,
-    docStatus: String,
-    url: String
-});
 
 const userSchema = new Schema({
     email: {
@@ -22,8 +15,7 @@ const userSchema = new Schema({
     salt: String,
     token: String,
     profileStatus: String,
-    docs: [docSchema]
-
+    docs: Array
 });
 
 userSchema.methods.setPassword = function (password) {
@@ -48,5 +40,9 @@ userSchema.methods.generateJwt = function () {
         exp: parseInt(expiry.getTime() / 1000)
     }, process.env.JWT_SECRET);
 };
+
+userSchema.methods.createUploadFolder = function (mainFolder) {
+    fs.mkdirSync(path.join(mainFolder, String(this._id)))
+}
 
 mongoose.model('User', userSchema);

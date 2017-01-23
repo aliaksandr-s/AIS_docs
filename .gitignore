@@ -1,3 +1,7 @@
 node_modules
+uploads
 front-end/bower_components
 front-end/dist
+.vscode
+debug.log
+.env

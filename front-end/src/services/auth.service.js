@@ -3,7 +3,7 @@
 
     angular
         .module('aisApp')
-        .service('authService', authService);
+        .factory('authService', authService);
 
     authService.$inject = ['$http'];
 

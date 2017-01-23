@@ -7,7 +7,7 @@
 
     function aisLeftNav() {
         return {
-            restrict: 'EA',
+            restrict: 'E',
             templateUrl: '/dist/directives/left-navigation/left-nav.view.html',
             controller: 'leftNavCtrl as leftNav'
         };
