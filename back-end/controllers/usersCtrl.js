@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const co = require('co');
+const pmongo = require('promised-mongo');
 const config = require('../config/configApp');
+const db = pmongo(config.dbURI);
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
+const User = mongoose.model('User');
 
 module.exports.addUser = (req, res) => {
     let name = req.body.name;
@@ -40,14 +43,22 @@ module.exports.addUser = (req, res) => {
 };
 
 module.exports.getUsers = (req, res) => {
-    User.find({}, '_id name email docs', function (err, users) {
-        if (err) {
-            sendJSONresponse(res, 409, {
-                "message": "Something went wrong"
+    co(function* () {
+        return yield db.users.find({}, {
+            hash: 0,
+            salt: 0
+        }).toArray();
+    }).then(
+        (val) => {
+            sendJSONresponse(res, 200, {
+                users: val
             })
-        }
-        sendJSONresponse(res, 200, {
-            "users": users
-        })
-    });
+        },
+        (err) => {
+            console.log(err);
+
+            sendJSONresponse(res, 500, {
+                message: 'Internal Server Error'
+            })
+        });
 }

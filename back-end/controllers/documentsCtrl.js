@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const Document = mongoose.model('Document');
-const formidable = require('formidable');
-const config = require('../config/configApp')
 const fs = require('fs');
 const path = require('path');
+const co = require('co');
+const formidable = require('formidable');
+const pmongo = require('promised-mongo');
+const config = require('../config/configApp')
+const db = pmongo(config.dbURI);
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
+const User = mongoose.model('User');
+const Document = mongoose.model('Document');
 
 module.exports.uploadDocument = (req, res) => {
 
@@ -67,15 +70,25 @@ module.exports.downloadDocument = (req, res) => {
 }
 
 module.exports.getUserDocuments = (req, res) => {
-    User.findOne({_id: req.params.userId}, (err, user) => {
-        if (err) {
-            sendJSONresponse(res, 404, {
-                "message": "Not found"
+    let id = req.params.userId;
+
+    co(function* () {
+        return yield db.users
+            .findOne({
+                _id: pmongo.ObjectId(id)
+            });
+    }).then(
+        (user) => {
+            sendJSONresponse(res, 200, {
+                users: user.docs
             })
-        }
-        sendJSONresponse(res, 200, {
-            "documents": user.docs
-        })
-    })
+        },
+        (err) => {
+            console.log(err);
+
+            sendJSONresponse(res, 500, {
+                message: 'Internal Server Error'
+            })
+        });
 
 }
