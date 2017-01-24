@@ -1,6 +1,4 @@
 const passport = require('passport');
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 
 module.exports.login = function (req, res) {

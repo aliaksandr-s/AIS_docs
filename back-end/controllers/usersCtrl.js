@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const config = require('../config/configApp');
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 
 module.exports.addUser = (req, res) => {
@@ -29,11 +30,24 @@ module.exports.addUser = (req, res) => {
             });
         } else {
             token = user.generateJwt();
+            user.createUploadFolder(config.UPLOAD_FOLDER);
 
-            let a;
             sendJSONresponse(res, 200, {
                 "token": token
             });
         }
     });
 };
+
+module.exports.getUsers = (req, res) => {
+    User.find({}, '_id name email docs', function (err, users) {
+        if (err) {
+            sendJSONresponse(res, 409, {
+                "message": "Something went wrong"
+            })
+        }
+        sendJSONresponse(res, 200, {
+            "users": users
+        })
+    });
+}

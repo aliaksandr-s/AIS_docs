@@ -8,14 +8,17 @@
     userService.$inject = ['$http'];
 
     function userService($http) {
-        var addUser = function (user) {
+        var service = this;
+
+        service.addUser = function (user) {
             return $http.post('/api/users', user).then(function (res) {
                 return res
             });
         };
 
-        return {
-            addUser: addUser
-        };
+        service.getUsers = function () {
+            return $http.get('/api/users')
+        }
+
     }
 })();

@@ -2,12 +2,18 @@ const express = require('express');
 const router = express.Router();
 const authCtrl = require('../controllers/authCtrl.js');
 const usersCtrl = require('../controllers/usersCtrl.js');
-const docsCtrl = require('../controllers/docsCtrl');
+const documentCtrl = require('../controllers/documentCtrl')
 
+// auth routes
 router.post('/login', authCtrl.login);
 
+// users routes //// {{make them private later}}
 router.post('/users', usersCtrl.addUser);
+router.get('/users', usersCtrl.getUsers);
 
-router.post('/users/docs', docsCtrl.addDoc);
+// documents routes
+router.post('/documents', documentCtrl.uploadDocument)
+router.get('/documents', documentCtrl.downloadDocument)
+router.get('/documents/:userId', documentCtrl.getUserDocuments)
 
 module.exports = router;

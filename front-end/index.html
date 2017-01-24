@@ -14,14 +14,7 @@
 <body>
     <ais-navigation></ais-navigation>
     <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <ais-left-nav></ais-left-nav>
-            </div>
-            <div class="col-md-9">
-                <ui-view></ui-view>
-            </div>
-        </div>
+        <ui-view></ui-view>
     </div>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -35,6 +28,8 @@
     <script src="./dist/controllers/newUser/newUser.ctrl.js"></script>
     <script src="./dist/controllers/newDocument/newDocument.ctrl.js"></script>
     <script src="./dist/controllers/login/login.ctrl.js"></script>
+    <script src="./dist/controllers/allUsers/allUsers.ctrl.js"></script>
+    <script src="./dist/controllers/userDocuments/userDocuments.ctrl.js"></script>
     <!--services-->
     <script src="./dist/services/user.service.js"></script>
     <script src="./dist/services/auth.service.js"></script>
@@ -44,6 +39,8 @@
     <script src="./dist/directives/navigation/navigation.directive.js"></script>
     <script src="./dist/directives/left-navigation/left-nav.ctrl.js"></script>
     <script src="./dist/directives/left-navigation/left-nav.directive.js"></script>
+    <script src="./dist/directives/user-card/user-card.ctrl.js"></script>
+    <script src="./dist/directives/user-card/user-card.directive.js"></script>
 </body>
 
 </html>

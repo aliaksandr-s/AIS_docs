@@ -21,6 +21,7 @@ module.exports = {
     },
     server: {
         proxy: 'localhost:3000',
+        port: 3001,
         watch: app.baseDist + '**/*.*' //path for watching
     },
     clean: app.baseDist //path for task clean,
