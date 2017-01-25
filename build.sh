@@ -1,5 +1,4 @@
 #!/bin/bash
-# Build tasks
 
 npm install
 
