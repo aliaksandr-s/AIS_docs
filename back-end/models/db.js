@@ -13,5 +13,4 @@ mongoose.connection.on('disconnected', function () {
     console.log('Mongoose disconnected');
 });
 
-require('./user');
 require('./document')
