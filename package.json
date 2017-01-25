@@ -6,7 +6,7 @@
     "start": "node ./back-end/bin/www",
     "backend": "nodemon ./back-end/bin/www",
     "devLnx": "NODE_ENV=development && gulp devLnx",
-    "prodLnx": "NODE_ENV=production && gulp prodProd",
+    "prodLnx": "NODE_ENV=production && gulp prodLnx",
     "devWin": "SET \"NODE_ENV=development\" && gulp devWin",
     "prodWin": "SET \"NODE_ENV=production\" && gulp prodWin"
   },
