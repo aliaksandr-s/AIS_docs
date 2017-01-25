@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const co = require('co');
@@ -7,45 +6,50 @@ const pmongo = require('promised-mongo');
 const config = require('../config/configApp')
 const db = pmongo(config.dbURI);
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
-const Document = mongoose.model('Document');
+const Document = require('../models/document').Document;
 
 module.exports.uploadDocument = (req, res) => {
+    let form = new formidable.IncomingForm();
 
-    /*    let form = new formidable.IncomingForm();
-        form.multiples = true;
-        form.uploadDir = config.UPLOAD_FOLDER;
+    form.multiples = true;
+    form.uploadDir = config.UPLOAD_FOLDER;
 
-        form.on('error', function (err) {
-            sendJSONresponse(res, 500, err);
-        });
+    form.parse(req, function (err, fields, files) {
+        let userId = fields.id;
+        let url = path.join(form.uploadDir, userId, files.file.name);
 
-        form.on('end', function () {
-            sendJSONresponse(res, 200, {
-                "message": "Uploaded"
-            })
-        });
+        fs.renameSync(files.file.path, url); // moves file to a user folder
 
-        form.parse(req, function (err, fields, files) {
-            let userId = fields.id;
-            let url = path.join(form.uploadDir, userId, files.file.name);
+        let obj = {
+            name: files.file.name,
+            date: new Date(),
+            status: 'new',
+            url: url
+        };
+        let doc = new Document(obj);
 
-            fs.renameSync(files.file.path, url); // moves file to a user folder
-
-            let document = new Document();
-            document.name = files.file.name;
-            document.date = new Date();
-            document.status = 'new';
-            document.url = url;
-
-            User.findById(userId, (err, user) => {
-                if (!err) {
-                    user.docs.push(document);
-                    user.save();
+        co(function* () {
+            return yield db.users.findAndModify({
+                query: {
+                    _id: pmongo.ObjectId(userId)
+                },
+                update: {
+                    $push: {
+                        docs: doc
+                    }
                 }
-            })
-
-        });*/
-
+            });
+        }).then(
+            (val) => {
+                sendJSONresponse(res, 200, {
+                    "message": "Uploaded"
+                })
+            },
+            (err) => {
+                console.log(err);
+                sendJSONresponse(res, 500, 'Internal Server Error');
+            });
+    });
 }
 
 module.exports.downloadDocument = (req, res) => {
@@ -65,7 +69,6 @@ module.exports.downloadDocument = (req, res) => {
             res.status(err.status).end();
         }
     });
-
 }
 
 module.exports.getUserDocuments = (req, res) => {
@@ -89,5 +92,4 @@ module.exports.getUserDocuments = (req, res) => {
                 message: 'Internal Server Error'
             })
         });
-
 }
