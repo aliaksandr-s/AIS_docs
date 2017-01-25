@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authCtrl = require('../controllers/authCtrl.js');
 const usersCtrl = require('../controllers/usersCtrl.js');
-const documentCtrl = require('../controllers/documentCtrl')
+const documentsCtrl = require('../controllers/documentsCtrl')
 
 // auth routes
 router.post('/login', authCtrl.login);
@@ -12,8 +12,8 @@ router.post('/users', usersCtrl.addUser);
 router.get('/users', usersCtrl.getUsers);
 
 // documents routes
-router.post('/documents', documentCtrl.uploadDocument)
-router.get('/documents', documentCtrl.downloadDocument)
-router.get('/documents/:userId', documentCtrl.getUserDocuments)
+router.post('/documents', documentsCtrl.uploadDocument)
+router.get('/documents', documentsCtrl.downloadDocument)
+router.get('/documents/:userId', documentsCtrl.getUserDocuments)
 
 module.exports = router;
