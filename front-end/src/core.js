@@ -41,9 +41,9 @@
             })
             .state('home.documents', {
                 url: 'documents',
-                templateUrl: 'dist/controllers/newDocument/newDocument.view.html',
-                controller: 'newDocumentCtrl',
-                controllerAs: 'newDoc'
+                templateUrl: 'dist/controllers/documents/document.view.html',
+                controller: 'documentsCtrl',
+                controllerAs: 'documents'
             })
             .state('home.add-documents', {
                 url: 'documents/add',
