@@ -13,7 +13,7 @@
         authService.currentUser().profileStatus === 'admin' ? (
             $state.transitionTo('home.users')
         ) : (
-            $state.transitionTo('home.documents')
+            $state.transitionTo('home.add-documents')
         );
 
 
