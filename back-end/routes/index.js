@@ -8,8 +8,8 @@ const documentsCtrl = require('../controllers/documentsCtrl')
 router.post('/login', authCtrl.login);
 
 // users routes //// {{make them private later}}
-router.post('/users', usersCtrl.addUser);
 router.get('/users', usersCtrl.getUsers);
+router.post('/users', usersCtrl.addUser);
 
 // documents routes
 router.post('/documents', documentsCtrl.uploadDocument)

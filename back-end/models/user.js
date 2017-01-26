@@ -4,13 +4,13 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 class User {
-    constructor(obj) {
-        this.name = obj && obj.name;
-        this.email = obj && obj.email;
+    constructor(user) {
+        this.name = user && user.name;
+        this.email = user && user.email;
         this.profileStatus = 'user';
         this.docs = [];
-        this.salt = obj && obj.salt || '';
-        this.hash = obj && obj.hash || '';
+        this.salt = user && user.salt || '';
+        this.hash = user && user.hash || '';
     }
 
     setPassword(password) {

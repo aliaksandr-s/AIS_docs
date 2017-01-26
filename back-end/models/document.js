@@ -1,9 +1,9 @@
 class Document {
-    constructor(obj) {
-        this.name = obj && obj.name;
-        this.date = obj && obj.date;
-        this.status = obj && obj.status;
-        this.url = obj && obj.url;
+    constructor(document) {
+        this.name = document && document.name;
+        this.date = document && document.date;
+        this.status = document && document.status;
+        this.url = document && document.url;
     }
 }
 

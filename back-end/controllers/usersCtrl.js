@@ -5,62 +5,59 @@ const db = pmongo(config.dbURI);
 const User = require('../models/user').User;
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 
-module.exports.addUser = (req, res) => {
-    let obj = {
-        name: req.body.name,
-        email: req.body.email
-    };
-    let password = req.body.password;
+//Gets all users
+module.exports.getUsers = (req, res) => {
+    co(function* () {
+        const users = yield db.users.find({}, {
+            hash: 0,
+            salt: 0
+        }).toArray();
 
-    if (!obj.name || !obj.email || !password) {
+        sendJSONresponse(res, 200, {
+            users: users
+        })
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
+        })
+    });
+}
+
+//Adds new user
+module.exports.addUser = (req, res) => {
+    if (!req.body.name || !req.body.email || !req.body.password) {
         sendJSONresponse(res, 400, {
             "message": "All fields required"
         });
         return;
     }
 
-    let user = new User(obj);
+    let userSettings = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    };
+    let user = new User(userSettings);
 
-    user.setPassword(password);
+    user.setPassword(userSettings.password);
 
     co(function* () {
-        return yield db.users.save(user);
-    }).then(
-        (val) => {
-            let token = user.generateJwt();
+        yield db.users.save(user);
 
-            user.createUploadFolder(config.UPLOAD_FOLDER);
+        let token = user.generateJwt();
 
-            sendJSONresponse(res, 200, {
-                "token": token
-            });
-        },
-        (err) => {
-            console.log(err);
+        user.createUploadFolder(config.UPLOAD_FOLDER);
 
-            sendJSONresponse(res, 500, {
-                message: 'Internal Server Error'
-            })
+        sendJSONresponse(res, 200, {
+            "token": token
         });
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
+        })
+    });
 };
-
-module.exports.getUsers = (req, res) => {
-    co(function* () {
-        return yield db.users.find({}, {
-            hash: 0,
-            salt: 0
-        }).toArray();
-    }).then(
-        (val) => {
-            sendJSONresponse(res, 200, {
-                users: val
-            })
-        },
-        (err) => {
-            console.log(err);
-
-            sendJSONresponse(res, 500, {
-                message: 'Internal Server Error'
-            })
-        });
-}
