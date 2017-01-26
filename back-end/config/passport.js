@@ -11,33 +11,33 @@ passport.use(new LocalStrategy({
     },
     function (username, password, done) {
         co(function* () {
-            return yield db.users.findOne({
+            const userDb = yield db.users.findOne({
                 email: username
             });
-        }).then(
-            (val) => {
-                if (!val) {
-                    return done(null, false, {
-                        message: 'Incorrect email or password.'
-                    });
-                }
 
-                let user = new User(val);
+            if (!userDb) {
+                return done(null, false, {
+                    message: 'Incorrect email or password.'
+                });
+            }
 
-                if (!user.validPassword(password)) {
-                    return done(null, false, {
-                        message: 'Incorrect email or password.'
-                    });
-                }
+            let user = new User(userDb);
 
-                if (val.profileStatus === 'admin') {
-                    user.profileStatus = 'admin';
-                }
+            if (!user.validPassword(password)) {
+                return done(null, false, {
+                    message: 'Incorrect email or password.'
+                });
+            }
 
-                return done(null, user);
-            },
-            (err) => {
-                return done(err);
-            });
+            if (userDb.profileStatus === 'admin') {
+                user.profileStatus = 'admin';
+            }
+
+            return done(null, user);
+        }).catch((err) => {
+            console.log(err.stack);
+
+            return done(err);
+        });
     }
 ));

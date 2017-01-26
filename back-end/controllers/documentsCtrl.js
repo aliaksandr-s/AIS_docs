@@ -8,6 +8,7 @@ const db = pmongo(config.dbURI);
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 const Document = require('../models/document').Document;
 
+//Uploads new document
 module.exports.uploadDocument = (req, res) => {
     let form = new formidable.IncomingForm();
 
@@ -20,38 +21,41 @@ module.exports.uploadDocument = (req, res) => {
 
         fs.renameSync(files.file.path, url); // moves file to a user folder
 
-        let obj = {
+        let documentSettings = {
             name: files.file.name,
             date: new Date(),
             status: 'new',
             url: url
         };
-        let doc = new Document(obj);
+        let document = new Document(documentSettings);
 
         co(function* () {
-            return yield db.users.findAndModify({
+            yield db.users.findAndModify({
                 query: {
                     _id: pmongo.ObjectId(userId)
                 },
                 update: {
                     $push: {
-                        docs: doc
+                        docs: document
                     }
                 }
             });
-        }).then(
-            (val) => {
-                sendJSONresponse(res, 200, {
-                    "message": "Uploaded"
-                })
-            },
-            (err) => {
-                console.log(err);
-                sendJSONresponse(res, 500, 'Internal Server Error');
-            });
+
+            sendJSONresponse(res, 200, {
+                "message": "Uploaded"
+            })
+        }).catch((err) => {
+            console.log(err.stack);
+
+            sendJSONresponse(res, 500, {
+                message: 'Internal Server Error'
+            })
+        });;
     });
 }
 
+
+//Downloads document
 module.exports.downloadDocument = (req, res) => {
     console.log(config.UPLOAD_FOLDER)
     let filePath = req.query.userId + '/' + req.query.docName;
@@ -71,25 +75,36 @@ module.exports.downloadDocument = (req, res) => {
     });
 }
 
+//Gets document of the user
 module.exports.getUserDocuments = (req, res) => {
-    let id = req.params.userId;
+    if (!req.params.userId) {
+        sendJSONresponse(res, 400, {
+            "message": "User ID required"
+        });
+    }
+
+    let userId = req.params.userId;
 
     co(function* () {
-        return yield db.users
+        const user = yield db.users
             .findOne({
-                _id: pmongo.ObjectId(id)
+                _id: pmongo.ObjectId(userId)
             });
-    }).then(
-        (user) => {
-            sendJSONresponse(res, 200, {
-                users: user.docs
-            })
-        },
-        (err) => {
-            console.log(err);
 
-            sendJSONresponse(res, 500, {
-                message: 'Internal Server Error'
-            })
-        });
+        if (!user) {
+            sendJSONresponse(res, 404, {
+                "message": "User not found"
+            });
+        }
+
+        sendJSONresponse(res, 200, {
+            docs: user.docs
+        })
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
+        })
+    });
 }
