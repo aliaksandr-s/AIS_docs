@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./back-end/bin/www",
     "backend": "nodemon ./back-end/bin/www",
-    "devLnx": "NODE_ENV=development && gulp devLnx",
-    "prodLnx": "NODE_ENV=production && gulp prodLnx",
+    "devLnx": "NODE_ENV=development && export NODE_ENV && gulp devLnx",
+    "prodLnx": "NODE_ENV=production && export NODE_ENV && gulp prodLnx",
     "devWin": "SET \"NODE_ENV=development\" && gulp devWin",
     "prodWin": "SET \"NODE_ENV=production\" && gulp prodWin"
   },

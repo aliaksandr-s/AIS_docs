@@ -82,7 +82,7 @@ module.exports.getUserDocuments = (req, res) => {
     }).then(
         (user) => {
             sendJSONresponse(res, 200, {
-                users: user.docs
+                docs: user.docs
             })
         },
         (err) => {
