@@ -5,10 +5,13 @@
         .module('aisApp')
         .controller('documentsCtrl', documentsCtrl);
 
-    documentsCtrl.$inject = [];
+    documentsCtrl.$inject = ['userService'];
 
-    function documentsCtrl () {
-        console.log('hi')
+    function documentsCtrl (userService) {
+        var vm = this;
 
+        userService.getUsers().then(function (res) {
+            vm.users = res.data.users;
+        });
     }
 })();
