@@ -1,53 +1,63 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const co = require('co');
+const pmongo = require('promised-mongo');
 const config = require('../config/configApp');
+const db = pmongo(config.dbURI);
+const User = require('../models/user').User;
 const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 
-module.exports.addUser = (req, res) => {
-    let name = req.body.name;
-    let email = req.body.email;
-    let password = req.body.password;
+//Gets all users
+module.exports.getUsers = (req, res) => {
+    co(function* () {
+        const users = yield db.users.find({}, {
+            hash: 0,
+            salt: 0
+        }).toArray();
 
-    if (!name || !email || !password) {
+        sendJSONresponse(res, 200, {
+            users: users
+        })
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
+        })
+    });
+}
+
+//Adds new user
+module.exports.addUser = (req, res) => {
+    if (!req.body.name || !req.body.email || !req.body.password) {
         sendJSONresponse(res, 400, {
             "message": "All fields required"
         });
         return;
     }
 
-    let user = new User();
-    user.name = name;
-    user.email = email;
-    user.setPassword(password);
-    user.profileStatus = 'user';
+    let userSettings = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    };
+    let user = new User(userSettings);
 
-    user.save(function (err, response) {
-        let token;
+    user.setPassword(userSettings.password);
 
-        if (err) {
-            sendJSONresponse(res, 404, {
-                "message": "User with that email already exists"
-            });
-        } else {
-            token = user.generateJwt();
-            user.createUploadFolder(config.UPLOAD_FOLDER);
+    co(function* () {
+        yield db.users.save(user);
 
-            sendJSONresponse(res, 200, {
-                "token": token
-            });
-        }
-    });
-};
+        let token = user.generateJwt();
 
-module.exports.getUsers = (req, res) => {
-    User.find({}, '_id name email docs', function (err, users) {
-        if (err) {
-            sendJSONresponse(res, 409, {
-                "message": "Something went wrong"
-            })
-        }
+        user.createUploadFolder(config.UPLOAD_FOLDER);
+
         sendJSONresponse(res, 200, {
-            "users": users
+            "token": token
+        });
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
         })
     });
-}
+};

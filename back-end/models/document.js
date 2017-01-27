@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+class Document {
+    constructor(document) {
+        this.name = document && document.name;
+        this.date = document && document.date;
+        this.status = document && document.status;
+        this.url = document && document.url;
+    }
+}
 
-const documentSchema = new Schema({
-    name: String,
-    date: Date,
-    status: String,
-    url: String
-});
-
-mongoose.model('Document', documentSchema);
+module.exports.Document = Document;
