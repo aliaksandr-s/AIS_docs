@@ -5,13 +5,18 @@
         .module('aisApp')
         .controller('documentsCtrl', documentsCtrl);
 
-    documentsCtrl.$inject = ['userService'];
+    documentsCtrl.$inject = ['documentService'];
 
-    function documentsCtrl (userService) {
+    function documentsCtrl (documentService) {
         var vm = this;
 
-        userService.getUsers().then(function (res) {
-            vm.users = res.data.users;
+        documentService.getAllDocuments().then(function (res) {
+            vm.allDocuments = res;
+            console.log(vm.allDocuments)
         });
+
+        vm.downloadDocument = function(userId, docName) {
+            documentService.downloadDocument(userId, docName)
+        }
     }
 })();

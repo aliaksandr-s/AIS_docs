@@ -13,7 +13,8 @@ router.post('/users', usersCtrl.addUser);
 
 // documents routes
 router.post('/documents', documentsCtrl.uploadDocument)
-router.get('/documents/:userId/:docName', documentsCtrl.downloadDocument)
+router.get('/documents', documentsCtrl.getAllDocuments)
 router.get('/documents/:userId', documentsCtrl.getUserDocuments)
+router.get('/documents/:userId/:docName', documentsCtrl.downloadDocument)
 
 module.exports = router;

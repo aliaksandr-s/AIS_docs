@@ -22,10 +22,7 @@
 
         service.downloadDocument = function (userId, docName) {
             return $http.get('api/documents/' + userId + '/' + docName, {
-                // params: {
-                //     userId: userId,
-                //     docName: docName
-                // },
+
                 // we should specify that response is a buffer
                 responseType: 'arraybuffer', 
                 // get headers info to set content-type and the name of the file
@@ -49,9 +46,16 @@
                     a.href = url;
                     a.download = res.data.fileName;
                     a.target = '_blank';
-                console.log(a.href)
+
                 a.click();
             })
+        }
+
+        service.getAllDocuments = function () {
+            return $http.get('api/documents')
+                .then(function (res) {
+                    return res.data.allDocuments
+                })
         }
 
     }

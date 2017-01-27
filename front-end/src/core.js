@@ -41,7 +41,7 @@
             })
             .state('home.documents', {
                 url: 'documents',
-                templateUrl: 'dist/controllers/documents/document.view.html',
+                templateUrl: 'dist/controllers/documents/documents.view.html',
                 controller: 'documentsCtrl',
                 controllerAs: 'documents'
             })

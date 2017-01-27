@@ -113,13 +113,13 @@ module.exports.getUserDocuments = (req, res) => {
 module.exports.getAllDocuments = (req, res) => {
 
     co(function* () {
-        const allDocs = yield db.users.find({
-
-        });
-
+        const allDocuments = yield db.users.aggregate( 
+            { $unwind : "$docs" },
+            { $project: {"ownerId": "$_id", "_id": 0, "ownerName": "$name", "ownerEmail": "$email", "documentInfo": "$docs"} }
+        )
 
         sendJSONresponse(res, 200, {
-            docs: allDocs
+            allDocuments: allDocuments
         })
 
     }).catch((err) => {
