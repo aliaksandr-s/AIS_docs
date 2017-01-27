@@ -24,7 +24,5 @@
             $state.go('login');
         }
 
-        console.log(authService.currentUser().profileStatus)
-
     }
 })();

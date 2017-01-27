@@ -58,5 +58,12 @@
                 })
         }
 
+        service.getUserDocuments = function (userId) {
+            return $http.get('api/documents/' + userId)
+                .then(function (res) {
+                    return res.data.userDocuments
+                })
+        }
+
     }
 })();

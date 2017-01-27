@@ -83,22 +83,23 @@ module.exports.getUserDocuments = (req, res) => {
         });
     }
 
-    let userId = req.params.userId;
+    const userId = req.params.userId;
 
     co(function* () {
-        const user = yield db.users
-            .findOne({
-                _id: pmongo.ObjectId(userId)
-            });
+        const userDocuments = yield db.users.aggregate( 
+            { $match: {"_id": pmongo.ObjectId(userId)} },
+            { $unwind : "$docs" },
+            { $project: {"ownerId": "$_id", "_id": 0, "ownerName": "$name", "ownerEmail": "$email", "documentInfo": "$docs"} }
+        )
 
-        if (!user) {
+        if (!userDocuments) {
             sendJSONresponse(res, 404, {
-                "message": "User not found"
+                "message": "Not found"
             });
         }
 
         sendJSONresponse(res, 200, {
-            docs: user.docs
+            userDocuments: userDocuments
         })
     }).catch((err) => {
         console.log(err.stack);

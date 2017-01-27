@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="doc in documents.allDocuments | orderBy:sortType:sortReverse | filter:searchValue">
+            <tr ng-repeat="doc in documents.documents | orderBy:sortType:sortReverse | filter:searchValue">
                 <td>{{$index + 1}}</td>
                 <td>{{doc.ownerName}}</td>
                 <td><a href="" ng-click="documents.downloadDocument(doc.ownerId, doc.documentInfo.name)">
