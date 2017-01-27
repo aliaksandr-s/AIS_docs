@@ -1,3 +1,6 @@
+<div class="col-sm-12 m-b-4" ng-if="home.currentUser && home.currentUser.profileStatus === 'admin'">
+    <a ui-sref="home.add-user" class="btn btn-default btn-lg btn-block">Add new client</a>
+</div>
 <div class="row">
     <ais-user-card user="user" ng-repeat="user in allUsers.users"></ais-user-card>
 </div>

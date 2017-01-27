@@ -9,7 +9,7 @@
         var vm = this;
 
         vm.showUserDocuments = function () {
-            $state.go('home.user-documents', {user: vm.user})
+            $state.go('home.user-documents', {user: vm.user, name: vm.user.name})
         }
 
         vm.getDocument = function(userId, docName) {
