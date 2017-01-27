@@ -57,13 +57,13 @@ module.exports.uploadDocument = (req, res) => {
 
 //Downloads document
 module.exports.downloadDocument = (req, res) => {
-    console.log(config.UPLOAD_FOLDER)
-    let filePath = req.query.userId + '/' + req.query.docName;
+    console.log(req.params)
+    let filePath = req.params.userId + '/' + req.params.docName;
 
     let options = {
         root: config.UPLOAD_FOLDER + '/',
         headers: {
-            "file-name": req.query.docName
+            "file-name": req.params.docName
         }
     }
 
@@ -100,6 +100,28 @@ module.exports.getUserDocuments = (req, res) => {
         sendJSONresponse(res, 200, {
             docs: user.docs
         })
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
+        })
+    });
+}
+
+
+module.exports.getAllDocuments = (req, res) => {
+
+    co(function* () {
+        const allDocs = yield db.users.find({
+
+        });
+
+
+        sendJSONresponse(res, 200, {
+            docs: allDocs
+        })
+
     }).catch((err) => {
         console.log(err.stack);
 
