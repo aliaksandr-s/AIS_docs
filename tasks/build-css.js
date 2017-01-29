@@ -11,7 +11,7 @@ const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developm
 module.exports = function (options) {
     return function () {
         return combiner(
-            gulp.src(options.src),
+            gulp.src(options.src, {since: gulp.lastRun('build:css')}),
             $.if(isDevelopment, $.sourcemaps.init()), //if development build - inits sourcemaps
             $.sass(), //compilies less to css
             prefixer(), //writes vendor's prefixes
