@@ -10,6 +10,15 @@ class ServerResponse {
         res.status(_status);
         res.json(_content);
     }
+
+    static sendFile(res, filePath, options) {
+        res.sendFile(filePath, options, function (err) {
+            if (err) {
+                console.log(err);
+                res.status(err.status).end();
+            }
+        });
+    }
 }
 
 module.exports.ServerResponse = ServerResponse;

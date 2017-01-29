@@ -11,6 +11,12 @@ const _errorsSettings = {
             message: "All fields required"
         }
     },
+    userIdRequired: {
+        status: 400,
+        content: {
+            message: 'User ID required'
+        }
+    },
     userExist: {
         status: 400,
         content: {
@@ -26,6 +32,10 @@ class ErrorsKeeper {
 
     static getFieldsRequiredErrSettings() {
         return _errorsSettings.fieldsRequiredErr;
+    }
+
+    static getUserIdRequiredErrSettings() {
+        return _errorsSettings.userIdRequired;
     }
     
     static getUserExistErrSettings() {
