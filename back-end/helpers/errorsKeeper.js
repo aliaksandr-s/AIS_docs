@@ -14,14 +14,12 @@ const _errorsSettings = {
     userExist: {
         status: 400,
         content: {
-            "message": 'User has already existed with same email'
+            message: 'User has already existed with same email'
         }
     }
 };
 
 class ErrorsKeeper {
-    constructor() {};
-
     static getServerErrSettings() {
         return _errorsSettings.serverErr;
     }

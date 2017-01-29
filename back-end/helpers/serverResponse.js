@@ -1,11 +1,9 @@
 let _status, _content;
 
 class ServerResponse {
-    constructor() {}
-
     static setResponseSettings(responseSettings) {
-        _status = responseSettings && responseSettings.status;
-        _content = responseSettings && responseSettings.content;
+        _status = responseSettings.status;
+        _content = responseSettings.content;
     }
 
     static sendJSONresponse(res) {

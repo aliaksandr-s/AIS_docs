@@ -1,26 +1,43 @@
 const passport = require('passport');
-const sendJSONresponse = require('../config/configApp.js').sendJSONresponse;
 
-module.exports.login = function (req, res) {
-    if (!req.body.email || !req.body.password) {
-        sendJSONresponse(res, 400, {
-            "message": "All fields required"
-        });
-        return;
-    }
-    passport.authenticate('local', function (err, user, info) {
-        let token;
-        if (err) {
-            sendJSONresponse(res, 404, err);
+const ErrorsKeeper = require('../helpers/errorsKeeper').ErrorsKeeper;
+const ServerResponse = require('../helpers/ServerResponse').ServerResponse;
+let _errSettings, _token,
+    _responseSettings = {
+        status: 0,
+        content: null
+    };
+
+class AuthCtrl {
+    static login(req, res) {
+        if (!req.body.email || !req.body.password) {
+            _errSettings = ErrorsKeeper.getFieldsRequiredErrSettings();
+            ServerResponse.setResponseSettings(_errSettings);
+            ServerResponse.sendJSONresponse(res);
             return;
         }
-        if (user) {
-            token = user.generateJwt();
-            sendJSONresponse(res, 200, {
-                "token": token
-            });
-        } else {
-            sendJSONresponse(res, 401, info);
-        }
-    })(req, res);
-};
+
+        passport.authenticate('local', function (err, user, info) {
+            if (err) {
+                _responseSettings.status = 404;
+                _responseSettings.content = err;
+            }
+
+            if (user) {
+                _token = user.generateJwt();
+                _responseSettings.status = 200;
+                _responseSettings.content = {
+                    token: _token
+                };
+            } else {
+                _responseSettings.status = 401;
+                _responseSettings.content = info;
+            }
+
+            ServerResponse.setResponseSettings(_responseSettings);
+            ServerResponse.sendJSONresponse(res);
+        })(req, res);
+    }
+}
+
+module.exports.AuthCtrl = AuthCtrl;
