@@ -57,13 +57,13 @@ module.exports.uploadDocument = (req, res) => {
 
 //Downloads document
 module.exports.downloadDocument = (req, res) => {
-    console.log(config.UPLOAD_FOLDER)
-    let filePath = req.query.userId + '/' + req.query.docName;
+    console.log(req.params)
+    let filePath = req.params.userId + '/' + req.params.docName;
 
     let options = {
         root: config.UPLOAD_FOLDER + '/',
         headers: {
-            "file-name": req.query.docName
+            "file-name": req.params.docName
         }
     }
 
@@ -83,23 +83,46 @@ module.exports.getUserDocuments = (req, res) => {
         });
     }
 
-    let userId = req.params.userId;
+    const userId = req.params.userId;
 
     co(function* () {
-        const user = yield db.users
-            .findOne({
-                _id: pmongo.ObjectId(userId)
-            });
+        const userDocuments = yield db.users.aggregate( 
+            { $match: {"_id": pmongo.ObjectId(userId)} },
+            { $unwind : "$docs" },
+            { $project: {"ownerId": "$_id", "_id": 0, "ownerName": "$name", "ownerEmail": "$email", "documentInfo": "$docs"} }
+        )
 
-        if (!user) {
+        if (!userDocuments) {
             sendJSONresponse(res, 404, {
-                "message": "User not found"
+                "message": "Not found"
             });
         }
 
         sendJSONresponse(res, 200, {
-            docs: user.docs
+            userDocuments: userDocuments
         })
+    }).catch((err) => {
+        console.log(err.stack);
+
+        sendJSONresponse(res, 500, {
+            message: 'Internal Server Error'
+        })
+    });
+}
+
+
+module.exports.getAllDocuments = (req, res) => {
+
+    co(function* () {
+        const allDocuments = yield db.users.aggregate( 
+            { $unwind : "$docs" },
+            { $project: {"ownerId": "$_id", "_id": 0, "ownerName": "$name", "ownerEmail": "$email", "documentInfo": "$docs"} }
+        )
+
+        sendJSONresponse(res, 200, {
+            allDocuments: allDocuments
+        })
+
     }).catch((err) => {
         console.log(err.stack);
 

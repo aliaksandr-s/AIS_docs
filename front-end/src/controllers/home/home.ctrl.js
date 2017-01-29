@@ -13,7 +13,7 @@
         authService.currentUser().profileStatus === 'admin' ? (
             $state.transitionTo('home.users')
         ) : (
-            $state.transitionTo('home.documents')
+            $state.transitionTo('home.add-documents')
         );
 
 
@@ -23,8 +23,6 @@
         if (!vm.isLoggedIn) {
             $state.go('login');
         }
-
-        console.log(authService.currentUser().profileStatus)
 
     }
 })();
