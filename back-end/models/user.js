@@ -4,13 +4,14 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 class User {
-    constructor(user) {
-        this.name = user && user.name;
-        this.email = user && user.email;
+    constructor(userSettings) {
+        this._id = userSettings && userSettings._id || null;
+        this.name = userSettings && userSettings.name || null;
+        this.email = userSettings && userSettings.email || null;
         this.profileStatus = 'user';
         this.docs = [];
-        this.salt = user && user.salt || '';
-        this.hash = user && user.hash || '';
+        this.salt = userSettings && userSettings.salt || null;
+        this.hash = userSettings && userSettings.hash || null;
     }
 
     setPassword(password) {
@@ -37,7 +38,7 @@ class User {
     }
 
     createUploadFolder(mainFolder) {
-        fs.mkdirSync(path.join(mainFolder, String(this._id)))
+        fs.mkdirSync(path.join(mainFolder, this._id))
     }
 }
 

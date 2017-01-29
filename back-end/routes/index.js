@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const authCtrl = require('../controllers/authCtrl.js');
-const usersCtrl = require('../controllers/usersCtrl.js');
+
+const AuthCtrl = require('../controllers/authCtrl').AuthCtrl;
+const UsersCtrl = require('../controllers/usersCtrl').UsersCtrl;
+const DocumentsCtrl = require('../controllers/documentsCtrl').DocumentsCtrl;
 const documentsCtrl = require('../controllers/documentsCtrl')
 
+
 // auth routes
-router.post('/login', authCtrl.login);
+router.post('/login', AuthCtrl.login);
 
 // users routes //// {{make them private later}}
-router.get('/users', usersCtrl.getUsers);
-router.post('/users', usersCtrl.addUser);
+router.get('/users', UsersCtrl.getUsers);
+router.post('/users', UsersCtrl.addUser);
 
 // documents routes
-router.post('/documents', documentsCtrl.uploadDocument)
-router.get('/documents', documentsCtrl.downloadDocument)
-router.get('/documents/:userId', documentsCtrl.getUserDocuments)
+router.get('/documents', DocumentsCtrl.getAllDocuments);
+router.get('/documents/:userId', DocumentsCtrl.getUserDocuments);
+router.get('/documents/:userId/:docName', DocumentsCtrl.downloadDocument);
+router.post('/documents', DocumentsCtrl.uploadDocument);
 
 module.exports = router;

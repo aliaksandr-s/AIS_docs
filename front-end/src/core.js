@@ -33,13 +33,19 @@
                 resolve: { restrict: adminOnly }
             })
             .state('home.user-documents', {
-                url: 'documents',
+                url: 'users/:name/documents',
                 templateUrl: 'dist/controllers/userDocuments/userDocuments.view.html',
                 controller: 'userDocumentsCtrl',
                 controllerAs: 'userDocs',
-                params: {user: null}                
+                params: {user: null, name: null}                
             })
             .state('home.documents', {
+                url: 'documents',
+                templateUrl: 'dist/controllers/documents/documents.view.html',
+                controller: 'documentsCtrl',
+                controllerAs: 'documents'
+            })
+            .state('home.add-documents', {
                 url: 'documents/add',
                 templateUrl: 'dist/controllers/newDocument/newDocument.view.html',
                 controller: 'newDocumentCtrl',
