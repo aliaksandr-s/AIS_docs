@@ -15,14 +15,14 @@
             return localStorage['ais-token'];
         };
 
-        var register = function (user) {
-            return $http.post('/api/register', user).then(function (res) {
-                saveToken(res.data.token);
-            });
-        };
+        /*var register = function (user) {
+                    return $http.post('/api/register', user).then(function (res) {
+                        saveToken(res.data.token);
+                    });
+       };*/
 
         var login = function (user) {
-            return $http.post('/api/login', user).then(function (res) {
+            return $http.post('/sigin', user).then(function (res) {
                 saveToken(res.data.token);
             });
         };
@@ -57,7 +57,7 @@
         return {
             saveToken: saveToken,
             getToken: getToken,
-            register: register,
+            //register: register,
             login: login,
             logout: logout,
             isLoggedIn: isLoggedIn,

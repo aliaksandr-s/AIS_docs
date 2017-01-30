@@ -5,20 +5,26 @@
         .module('aisApp')
         .service('userService', userService);
 
-    userService.$inject = ['$http'];
+    userService.$inject = ['$http', 'authService'];
 
-    function userService($http) {
+    function userService($http, authService) {
         var service = this;
-
-        service.addUser = function (user) {
-            return $http.post('/api/users', user).then(function (res) {
-                return res
-            });
+        var token = authService.getToken();
+        var options = {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
         };
 
         service.getUsers = function () {
-            return $http.get('/api/users')
+            return $http.get('/api/users', options);
         }
 
+        service.addUser = function (user) {
+            return $http.post('/api/users', user, options)
+                .then(function (res) {
+                    return res;
+                });
+        };
     }
 })();
