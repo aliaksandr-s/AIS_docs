@@ -23,10 +23,9 @@
             });
         } else {
             var currentUserId = authService.currentUser().id;
-            console.log(currentUserId)
-            // documentService.getUserDocuments(currentUserId).then(function (res) {
-            //     vm.documents = res;
-            // });
+            documentService.getUserDocuments(currentUserId).then(function (res) {
+                vm.documents = res;
+            });
         }
 
         
