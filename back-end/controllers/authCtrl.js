@@ -1,7 +1,7 @@
 const passport = require('passport');
 
 const ErrorsKeeper = require('../helpers/errorsKeeper').ErrorsKeeper;
-const ServerResponse = require('../helpers/ServerResponse').ServerResponse;
+const ServerResponse = require('../helpers/serverResponse').ServerResponse;
 let _errSettings, _token,
     _responseSettings = {
         status: 0,

@@ -1,6 +1,6 @@
 const UsersManager = require('../BLL/usersManager').UsersManager;
 const ErrorsKeeper = require('../helpers/errorsKeeper').ErrorsKeeper;
-const ServerResponse = require('../helpers/ServerResponse').ServerResponse;
+const ServerResponse = require('../helpers/serverResponse').ServerResponse;
 let _errSettings, _responseSettings, _userSettings;
 
 class UsersCtrl {

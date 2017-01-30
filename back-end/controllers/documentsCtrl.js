@@ -3,7 +3,7 @@ const path = require('path');
 const config = require('../config/configApp')
 const DocumentsManager = require('../BLL/documentsManager').DocumentsManager;
 const ErrorsKeeper = require('../helpers/errorsKeeper').ErrorsKeeper;
-const ServerResponse = require('../helpers/ServerResponse').ServerResponse;
+const ServerResponse = require('../helpers/serverResponse').ServerResponse;
 
 let _errSettings, _responseSettings;
 
