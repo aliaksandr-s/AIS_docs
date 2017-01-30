@@ -32,7 +32,7 @@ class DocumentsManager {
     }
 
     static getUserDocuments(userId) {
-        co(function* () {
+        return co(function* () {
             const userDocuments = yield DocumentsRepository.getUserDocuments(userId);
 
             if (!userDocuments) {
@@ -46,6 +46,8 @@ class DocumentsManager {
                     userDocuments: userDocuments
                 }
             }
+
+            return _responseSettings;
         }).catch((err) => {
             console.log(err.stack);
 
